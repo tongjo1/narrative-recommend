@@ -1,12 +1,12 @@
 from os import listdir
 from os.path import isfile, join, isdir
 from json import loads
-from sys import path
-path.append("/Users/andyreagan/tools/python")
+import sys
+sys.path.append('/Users/Owner/Documents/GitHub/narrative-recommend')
 from kitchentable.dogtoys import *
 from numpy import dot,cumsum,floor,zeros,sum,array,random,ones
-from labMTsimple.labMTsimple.storyLab import *
-from labMTsimple.labMTsimple.speedy import LabMT
+from labMTsimple.storyLab import *
+from labMTsimple.speedy import LabMT
 my_LabMT = LabMT()
 from scipy.sparse import lil_matrix,issparse
 # notes on sparse matrices:
@@ -18,10 +18,11 @@ import itertools
 from tqdm import tqdm
 import re
 from copy import deepcopy
-from spacy.en import English
+from spacy.lang.en import English
 nlp = English()
 
-base_dir = "/Users/andyreagan/projects/2014/09-books/"
+base_dir = "/Users/Owner/Documents/GitHub/narrative-reccomend/books"
+#C:\Users\Owner\Documents\GitHub\narrative-recommend\books
 use_compression = True
 
 def binn(somelist,value):
@@ -332,7 +333,7 @@ class Book_raw_data(object):
             self.all_fvecs = csr_matrix(self.all_fvecs)
         return self.timeseries
 
-    def chopper_sliding(self,my_senti_dict,min_size=10000,num_points=100,stop_val=0.0,use_cache=False,randomize=False,random_method="markov"):
+    def chopper_sliding(text,my_senti_dict,min_size=10000,num_points=100,stop_val=0.0,use_cache=False,randomize=False,random_method="markov"):
         """Take long piece of text and generate the sentiment time series.
         We will now slide the window along, rather than make uniform pieces.
 
